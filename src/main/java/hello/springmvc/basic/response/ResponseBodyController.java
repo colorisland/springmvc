@@ -13,6 +13,7 @@ import java.io.IOException;
 
 @Slf4j
 //@Controller
+//@ResponseBody
 @RestController
 public class ResponseBodyController {
 
@@ -32,16 +33,22 @@ public class ResponseBodyController {
         return "OK";
     }
 
+//    @PostMapping(value = "/testtest", produces = "text/html")
+//    public String mappingProduces() {
+//        log.info("mappingProduces");
+//        return "ok";
+//    }
 
     @GetMapping("/response-body-json-v1")
     public ResponseEntity<HelloData> responseBodyJsonV1() throws IOException {
         return new ResponseEntity<>(HelloData.builder().age(11).username("애옹").build(),HttpStatus.OK);
     }
 
+    // @ResponseStatus 애노테이션을 없애면 ResponseEntity중 body에 들어가는 값만 전달된다.
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @GetMapping("/response-body-json-v2")
     public ResponseEntity<HelloData> responseBodyJsonV2() throws IOException {
-        return new ResponseEntity<>(HelloData.builder().age(11).username("애옹").build(),HttpStatus.OK);
+        return new ResponseEntity<>(HelloData.builder().age(11).username("애옹").build(),HttpStatus.BAD_REQUEST);
     }
 }
